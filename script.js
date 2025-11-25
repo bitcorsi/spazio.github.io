@@ -1,6 +1,6 @@
 // ====== CONFIGURA QUESTI VALORI ======
-const API_KEY = "INSERISCI-LA-TUA-API-KEY";
-const BASE_ID = "INSERISCI-LA-TUA-BASE-ID";
+const API_KEY = "patgJP8D7vLtC1PA1.19ec4450820a3f1ee8fe3053adb0a325608ce241c5e8ed3d316d9f0d8290418a";
+const BASE_ID = "appmMqXZlrXlGD6HN";
 const TABLE = "Corsi";
 // ======================================
 
