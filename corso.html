@@ -1,97 +1,115 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dettaglio Corso - Spazio Corsi</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dettaglio Corso – Portale Maker</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --bg: #f4f6ff;
+      --radius: 20px;
+    }
+
+    body { margin:0; font-family:"Inter", sans-serif; background:var(--bg); }
+
+    header {
+      position:sticky; top:0; background:white; padding:18px 26px;
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid #e5e7eb; z-index:100;
+    }
+    header h1 { margin:0; font-weight:800; font-size:1.6rem; }
+    nav a { margin-left:14px; text-decoration:none; color:var(--primary); font-weight:600; }
+
+    /* HERO */
+    .course-hero {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding:70px 20px; text-align:center; color:white;
+      border-radius:0 0 30px 30px;
+    }
+    .course-hero h2 { font-size:2.3rem; margin:0; font-weight:900; }
+    .course-meta-top { margin-top:10px; font-size:1.05rem; opacity:.9; }
+
+    /* CONTENT BOX */
+    .container { max-width:900px; margin:30px auto; padding:0 20px; }
+    .course-box {
+      background:white; padding:24px; border-radius:var(--radius);
+      box-shadow:0 4px 16px rgba(0,0,0,0.08); animation:fadeIn .4s ease;
+    }
+
+    #corso-container img {
+      width:100%; border-radius:var(--radius); margin-bottom:20px;
+    }
+
+    h3 { margin-top:28px; font-size:1.4rem; font-weight:800; }
+
+    .btn {
+      display:inline-block; padding:14px 22px; background:var(--primary);
+      color:white; border-radius:var(--radius); text-decoration:none;
+      font-weight:700; transition:0.25s; margin-top:20px;
+    }
+    .btn:hover { background:var(--primary-dark); }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(10px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+  </style>
 </head>
+
 <body>
-    <header class="header">
-        <nav class="nav container">
-            <div class="nav-brand">
-                <a href="index.html"><h1>Spazio Corsi</h1></a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="corsi.html" class="nav-link active">Corsi</a></li>
-                <li><a href="proponi.html" class="nav-link">Proponi</a></li>
-            </ul>
-             <div class="nav-actions">
-                <button id="theme-toggle" class="btn-icon" aria-label="Cambia tema">🌙</button>
-                <div class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
-    </header>
+<header>
+  <h1>Portale Maker</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="corsi.html">Corsi</a>
+  </nav>
+</header>
 
-    <main>
-        <section class="course-detail">
-            <div class="container">
-                <div class="course-header" data-aos="fade-down">
-                    <div class="course-image">
-                        <div class="image-placeholder" id="courseImagePlaceholder"></div>
-                        <div class="course-badge" id="courseCategory"></div>
-                    </div>
-                    <div class="course-info">
-                        <h1 class="course-title" id="courseTitle"></h1>
-                        <p class="course-instructor" id="courseInstructor"></p>
-                        <div class="course-rating-summary">
-                            <div class="stars" id="courseStars"></div>
-                            <span class="rating-text" id="courseRating"></span>
-                            <span class="students-count" id="courseStudents"></span>
-                        </div>
-                        <p class="course-description mb-4" id="courseDescription"></p>
+<section class="course-hero">
+  <h2 id="corso-title">Caricamento...</h2>
+  <p class="course-meta-top" id="corso-meta"></p>
+</section>
 
-                        <div class="course-meta mb-4">
-                            <div class="meta-item"><i class="fas fa-clock meta-icon"></i> <span id="courseDuration"></span></div>
-                            <div class="meta-item"><i class="fas fa-calendar-alt meta-icon"></i> <span id="courseDate"></span></div>
-                            <div class="meta-item"><i class="fas fa-signal meta-icon"></i> <span id="courseLevel"></span></div>
-                        </div>
+<div class="container">
+  <div class="course-box" id="corso-container">
+    <p>Caricamento dettagli...</p>
+  </div>
+</div>
 
-                        <div class="course-price-section">
-                            <span class="price" id="coursePrice"></span>
-                            <button class="btn btn-primary btn-enroll">Iscriviti Ora &rarr;</button>
-                        </div>
-                    </div>
-                </div>
+<script src="script.js"></script>
+<script>
+  // Rendering dettagli corso da Airtable
+  function renderCourseDetail(corso) {
+    const c = corso.fields;
 
-                <div class="course-content" data-aos="fade-up">
-                    <div class="content-tabs">
-                        <button class="tab-btn active" data-tab="tabCurriculum">Curriculum</button>
-                        <button class="tab-btn" data-tab="tabInstructor">Istruttore</button>
-                        <button class="tab-btn" data-tab="tabReviews">Recensioni</button>
-                    </div>
+    document.getElementById('corso-title').textContent = c.titolo || "Corso";
 
-                    <div class="tab-content active" id="tabCurriculum">
-                        <div class="curriculum-list" id="courseCurriculum">
-                            </div>
-                    </div>
+    document.getElementById('corso-meta').textContent =
+      `${c.eta_min || ''}–${c.eta_max || ''} anni • ${c.orario || ''}`;
 
-                    <div class="tab-content" id="tabInstructor">
-                        <div id="instructorProfile">
-                            </div>
-                    </div>
+    document.getElementById('corso-container').innerHTML = `
+      ${c.immagine ? `<img src="${c.immagine}" alt="${c.titolo}" />` : ''}
 
-                    <div class="tab-content" id="tabReviews">
-                        <div class="reviews-list" id="courseReviews">
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+      <h3>Descrizione</h3>
+      <p>${c.descrizione || 'Nessuna descrizione disponibile.'}</p>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Spazio Corsi. Tutti i diritti riservati.</p>
-        </div>
-    </footer>
+      <h3>Dettagli</h3>
+      <p><strong>Indirizzo:</strong> ${c.indirizzo || '—'}</p>
+      <p><strong>Orario:</strong> ${c.orario || '—'}</p>
+      <p><strong>Periodo:</strong> ${c.data_inizio || ''} → ${c.data_fine || ''}</p>
 
-    <script src="script.js"></script>
+      <h3>Contatti</h3>
+      <p><strong>Email:</strong> ${c.contatto_email || '—'}</p>
+      <p><strong>Telefono:</strong> ${c.contatto_tel || '—'}</p>
+
+      ${c.link_iscrizione ? `<a class="btn" href="${c.link_iscrizione}" target="_blank">Iscriviti al corso</a>` : ''}
+    `;
+  }
+</script>
+
 </body>
 </html>
