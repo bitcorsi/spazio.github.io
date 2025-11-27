@@ -1,64 +1,60 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Corsi – Portale Maker</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    :root {
-      --primary: #4f46e5;
-      --primary-dark: #3730a3;
-      --bg: #f4f6ff;
-      --radius: 20px;
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
     }
 
-    body { background: var(--bg); font-family: 'Inter', sans-serif; margin:0; }
-
-    header {
-      position: sticky; top: 0; background: white; padding: 18px 26px;
-      display:flex; justify-content: space-between; align-items:center;
-      border-bottom:1px solid #e5e7eb; z-index:100;
-    }
-    header h1 { margin:0; font-size:1.6rem; font-weight:800; }
-    nav a { margin-left:14px; color:var(--primary); text-decoration:none; font-weight:600; }
-
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      padding:70px 20px; text-align:center; color:white; border-radius:0 0 32px 32px;
-    }
-    .hero h2 { margin:0; font-size:2.3rem; font-weight:900; }
-    .hero p { margin-top:10px; opacity:0.95; font-size:1.1rem; }
-
-    /* Search */
-    #search {
-      width:100%; padding:15px; border-radius:var(--radius);
-      border:1px solid #ddd; margin-top:25px; font-size:1rem;
-    }
-
-    /* GRID */
-    .grid {
-      display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-      gap:24px; margin-top:30px;
+    .filters select, .filters input {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      flex: 1 1 200px;
     }
 
     .course-card {
-      background:white; border-radius:var(--radius);
-      box-shadow:0 4px 14px rgba(0,0,0,0.08);
-      overflow:hidden; transition:0.25s;
+      position: relative;
     }
-    .course-card:hover { transform:translateY(-6px); }
 
-    .course-card img { width:100%; height:160px; object-fit:cover; }
-    .course-info { padding:18px; }
-    .course-title { font-size:1.25rem; font-weight:800; margin:0 0 8px 0; }
-    .course-meta { font-size:0.9rem; color:#666; margin-bottom:10px; }
+    .badge-category {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--primary);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
 
+    .empty-msg {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 
 <body>
+
 <header>
   <h1>Portale Maker</h1>
   <nav>
@@ -69,20 +65,159 @@
 
 <section class="hero">
   <h2>Esplora tutti i corsi</h2>
-  <p>Dai laboratori creativi alla tecnologia: tutto in un unico posto.</p>
+  <p>Filtra, cerca e trova il laboratorio perfetto per te.</p>
 </section>
 
 <div class="container">
-  <input id="search" type="text" placeholder="Cerca un corso..." />
+
+  <!-- 🔎 FILTRI PROFESSIONALI -->
+  <div class="filters">
+    <input type="text" id="search" placeholder="Cerca un corso...">
+
+    <select id="filter-category">
+      <option value="">Tutte le categorie</option>
+      <option>Arte</option>
+      <option>Sport</option>
+      <option>Musica</option>
+      <option>STEM</option>
+      <option>Teatro</option>
+      <option>Inglese</option>
+      <option>Danza</option>
+      <option>Robotica</option>
+      <option>Altro</option>
+    </select>
+
+    <select id="filter-age">
+      <option value="">Età</option>
+      <option value="3">3 anni</option>
+      <option value="4">4 anni</option>
+      <option value="5">5 anni</option>
+      <option value="6">6 anni</option>
+      <option value="7">7 anni</option>
+      <option value="8">8 anni</option>
+      <option value="9">9 anni</option>
+      <option value="10">10 anni</option>
+      <option value="11">11 anni</option>
+      <option value="12">12 anni</option>
+      <option value="13">13 anni</option>
+      <option value="14">14 anni</option>
+      <option value="15">15 anni</option>
+      <option value="16">16 anni</option>
+      <option value="17">17 anni</option>
+      <option value="18">18 anni</option>
+    </select>
+
+    <select id="filter-area">
+      <option value="">Tutti i quartieri</option>
+      <option value="Mompiano">Mompiano</option>
+      <option value="Centro">Centro</option>
+      <option value="San Polo">San Polo</option>
+      <option value="Crocifissa">Crocifissa</option>
+      <option value="Urago Mella">Urago Mella</option>
+      <option value="Villaggio Prealpino">Villaggio Prealpino</option>
+      <!-- puoi aggiungere tutti i quartieri della tabella -->
+    </select>
+  </div>
+
+  <!-- GRID CORSI -->
   <div class="grid" id="lista-corsi">
     <p>Caricamento corsi...</p>
   </div>
+
 </div>
 
 <script src="script.js"></script>
+
 <script>
-  const searchInput = document.getElementById('search');
-  searchInput.addEventListener('input', () => filterCourses(searchInput.value.toLowerCase()));
+/* ===========================================================
+   🔍 FILTRI AVANZATI
+   Funzionano in locale, non serve modificare Airtable
+=========================================================== */
+
+const searchInput = document.getElementById('search');
+const filterCategory = document.getElementById('filter-category');
+const filterAge = document.getElementById('filter-age');
+const filterArea = document.getElementById('filter-area');
+
+function applyFilters() {
+  const query = searchInput.value.toLowerCase();
+  const category = filterCategory.value;
+  const age = Number(filterAge.value);
+  const area = filterArea.value;
+
+  document.querySelectorAll('.course-card').forEach(card => {
+    const title = card.getAttribute('data-title');
+    const cat = card.getAttribute('data-category');
+    const min = Number(card.getAttribute('data-min'));
+    const max = Number(card.getAttribute('data-max'));
+    const zone = card.getAttribute('data-area');
+
+    let show = true;
+
+    if (query && !title.includes(query)) show = false;
+    if (category && cat !== category) show = false;
+    if (age && !(age >= min && age <= max)) show = false;
+    if (area && zone !== area) show = false;
+
+    card.style.display = show ? "block" : "none";
+  });
+
+  // Se nessun corso è visibile
+  const visible = [...document.querySelectorAll('.course-card')].some(
+    c => c.style.display !== "none"
+  );
+
+  if (!visible) {
+    document.getElementById("lista-corsi").innerHTML =
+      `<p class="empty-msg">Nessun corso corrisponde ai filtri.</p>`;
+  }
+}
+
+// Event listeners
+searchInput.addEventListener("input", applyFilters);
+filterCategory.addEventListener("change", applyFilters);
+filterAge.addEventListener("change", applyFilters);
+filterArea.addEventListener("change", applyFilters);
+
+/* ===========================================================
+   🔄 OVERRIDE DEL RENDER DELLE CARD
+   (aggiunge dataset per i filtri)
+=========================================================== */
+
+const oldRenderCourses = renderCourses;
+
+renderCourses = function(records) {
+  const container = document.getElementById("lista-corsi");
+  container.innerHTML = "";
+
+  records.forEach(rec => {
+    const c = rec.fields;
+    const id = rec.id;
+    const img = c.immagine ? c.immagine[0].url : "https://via.placeholder.com/600x400?text=Portale+Maker";
+
+    const card = document.createElement("div");
+    card.className = "course-card";
+
+    // dataset necessari ai filtri
+    card.dataset.title = (c.titolo || "").toLowerCase();
+    card.dataset.category = c.categoria || "";
+    card.dataset.min = c.eta_min || 0;
+    card.dataset.max = c.eta_max || 99;
+    card.dataset.area = c.quartiere || "";
+
+    card.innerHTML = `
+      <span class="badge-category">${c.categoria || ""}</span>
+      <img src="${img}" alt="${c.titolo}">
+      <div class="course-info">
+        <h3 class="course-title">${c.titolo}</h3>
+        <p class="course-meta">${c.quartiere || ""} • ${c.eta_min || "?"}–${c.eta_max || "?"} anni</p>
+        <a class="btn" href="corso.html?id=${id}">Dettagli</a>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+};
 </script>
 
 </body>
