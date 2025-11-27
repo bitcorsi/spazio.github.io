@@ -10,9 +10,6 @@
   <!-- ICONS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- QR GENERATOR -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-
   <style>
     .course-layout {
       display: flex;
@@ -59,25 +56,6 @@
       color: var(--primary-dark);
     }
 
-    .map-box {
-      margin-top: 20px;
-      width: 100%;
-      height: 240px;
-      border: none;
-      border-radius: 12px;
-    }
-
-    .qr-box {
-      text-align: center;
-      margin-top: 28px;
-    }
-
-    .qr-box canvas {
-      width: 140px;
-      height: 140px;
-      border-radius: 12px;
-    }
-
     .course-description {
       margin-top: 35px;
       background: white;
@@ -117,8 +95,6 @@ function renderCourseDetail(data) {
   const c = data.fields;
 
   const img = c.immagine ? c.immagine[0].url : "";
-  const url = window.location.href;
-
   const indirizzo = c.indirizzo || "";
   const indirizzoEncoded = encodeURIComponent(indirizzo);
 
@@ -147,20 +123,16 @@ function renderCourseDetail(data) {
         <div class="course-field"><i class="fa-solid fa-calendar"></i> ${c.data_inizio || ""} → ${c.data_fine || ""}</div>
 
         <div class="course-field"><i class="fa-solid fa-envelope"></i> ${c.contatto_email || "—"}</div>
-        <div class="course-field"><i class="fa-brands fa-whatsapp"></i> <a class="btn" href="${whatsappUrl}" target="_blank">Contatta su WhatsApp</a></div>
 
-        <div class="course-field"><i class="fa-solid fa-calendar-plus"></i>
-          <a class="btn" href="${calendarUrl}" target="_blank">Aggiungi al calendario</a>
-        </div>
+        <a class="btn" href="${whatsappUrl}" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i> Contatta su WhatsApp
+        </a>
 
-        <iframe class="map-box"
-          src="https://www.google.com/maps?q=${indirizzoEncoded}&output=embed">
-        </iframe>
+        <br><br>
 
-        <div class="qr-box">
-          <h4>Condividi</h4>
-          <canvas id="qr"></canvas>
-        </div>
+        <a class="btn" href="${calendarUrl}" target="_blank">
+          <i class="fa-solid fa-calendar-plus"></i> Aggiungi al calendario
+        </a>
       </div>
     </div>
 
@@ -169,13 +141,6 @@ function renderCourseDetail(data) {
       <p>${c.descrizione || "Nessuna descrizione disponibile."}</p>
     </div>
   `;
-
-  // QR CODE
-  const qr = new QRious({
-    element: document.getElementById('qr'),
-    value: url,
-    size: 200
-  });
 }
 </script>
 
