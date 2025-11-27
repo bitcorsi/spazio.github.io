@@ -10,8 +10,8 @@
 /* ----------------------------------------------------------
    🔑 CONFIGURAZIONE GOOGLE SHEETS
 ---------------------------------------------------------- */
-const SHEET_ID = 'IL_TUO_ID_DEL_FOGLIO'; // Sostituisci con l'ID del tuo Google Sheets
-const API_KEY = 'LA_TUA_API_KEY'; // Sostituisci con la tua API Key
+const SHEET_ID = '1hLgAXaANUPl97laG9Qs6sZie39FxYTGZUnu3V84Fjv4'; // Sostituisci con l'ID del tuo Google Sheets
+const API_KEY = 'AIzaSyDr_tb8-bpaVFAPj4exphe4WzuYxlM7M1c'; // Sostituisci con la tua API Key
 const SHEET_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Corsi!A2:L?key=${API_KEY}`;
 
 /* ----------------------------------------------------------
